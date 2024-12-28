@@ -13,9 +13,13 @@ const app = express();
 
 // Middleware to parse JSON bodies
 app.use(express.json());
-app.use(cors());
-app.use(bodyParser.json({ limit: '10mb' })) // You can adjust the size as needed
-app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }))
+app.use(cors(
+  {
+    origin: '*',
+    methods: 'GET,POST',
+    credentials: true
+  }
+));
 
 // Use the router
 app.use("/response", responseRoutes);
