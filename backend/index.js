@@ -28,7 +28,7 @@ app.use(cors(
   }
 ));
 
-// Use the router
+// Use the app
 
 // Start the server
 const PORT = process.env.PORT || 3200;
@@ -332,7 +332,7 @@ const recordUserVote = async (userId, ideaID, voteType) => {
 
 // Define routes for the users
 
-router.post("/api/sendMessage", async (req, res) => {
+app.post("/api/sendMessage", async (req, res) => {
   try {
     const { message, userId, isPrivate, devName } = req.body;
     if (!message) {
@@ -352,7 +352,7 @@ router.post("/api/sendMessage", async (req, res) => {
   }
 });
 
-router.post("/api/submit-idea", async (req, res) => {
+app.post("/api/submit-idea", async (req, res) => {
   const {
     formData,
     userId,
@@ -391,7 +391,7 @@ router.post("/api/submit-idea", async (req, res) => {
   // Simulate a successful response
 });
 
-router.get("/api/ideas", async (req, res) => {
+app.get("/api/ideas", async (req, res) => {
   try {
     await client.connect();
     const userId = req.query.userId;
@@ -409,7 +409,7 @@ router.get("/api/ideas", async (req, res) => {
     await client.close();
   }
 });
-router.get("/api/getValidationIdeas", async (req, res) => {
+app.get("/api/getValidationIdeas", async (req, res) => {
   try {
     await client.connect();
     const messages = await client
@@ -426,7 +426,7 @@ router.get("/api/getValidationIdeas", async (req, res) => {
   }
 });
 
-router.get("/api/getValidationIdeas/:id", async (req, res) => {
+app.get("/api/getValidationIdeas/:id", async (req, res) => {
   try {
     await client.connect();
     const messages = await client
@@ -442,7 +442,7 @@ router.get("/api/getValidationIdeas/:id", async (req, res) => {
   }
 });
 
-router.post("/api/upvoteIdea/:ideaID", async (req, res) => {
+app.post("/api/upvoteIdea/:ideaID", async (req, res) => {
   try {
     const { ideaID } = req.params;
     const { userId, feedback } = req.body; // Assuming userId and feedback are included in the request body
@@ -463,7 +463,7 @@ router.post("/api/upvoteIdea/:ideaID", async (req, res) => {
 });
 
 // Define the route for downvoting an idea
-router.post("/api/downvoteIdea/:ideaID", async (req, res) => {
+app.post("/api/downvoteIdea/:ideaID", async (req, res) => {
   try {
     const { ideaID } = req.params;
     const { userId, feedback } = req.body; // Assuming userId and feedback are included in the request body
@@ -483,7 +483,7 @@ router.post("/api/downvoteIdea/:ideaID", async (req, res) => {
   }
 });
 
-router.get("/api/all-ideas", async (req, res) => {
+app.get("/api/all-ideas", async (req, res) => {
   try {
     await client.connect();
     const messages = await client
@@ -524,7 +524,7 @@ const userIDValidation = async (userId, updatedFields) => {
   }
 };
 
-router.post("/api/profile", async (req, res) => {
+app.post("/api/profile", async (req, res) => {
   const { userId, name, username, headline, company, role, about } = req.body;
 
   try {
@@ -570,7 +570,7 @@ router.post("/api/profile", async (req, res) => {
   }
 });
 
-router.get("/api/ViewProfile", async (req, res) => {
+app.get("/api/ViewProfile", async (req, res) => {
   try {
     await client.connect();
     const userId = req.query.userId;
